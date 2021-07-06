@@ -473,7 +473,7 @@ class IM_video_Anaylysis(APIView):
                                  "right_hand": {"time": Right_Hand_time, "count": Right_Hand_count, "point": Right_Hand_point_result}}
 
 
-        with open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/%d_%d_result.json' % (int(userkey), int(videoNo)), 'w', encoding='utf-8') as make_file:
+        with open('home/ubuntu/IM_result/withmind_video/im_video/%d_%d_result.json' % (int(userkey), int(videoNo)), 'w', encoding='utf-8') as make_file:
              json.dump(result_data, make_file, ensure_ascii=False, indent="\t")
 
 
@@ -487,13 +487,13 @@ class IM_video_Anaylysis(APIView):
         # myfile = open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename, 'wb')
         # with open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename) as contents:
         #     ftp.storbinary('STOR %s' % filename, contents)
-        fileroute = 'C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/'
+        fileroute = 'home/ubuntu/IM_result/withmind_video/im_video/'
         myfile = open(fileroute + filename, 'rb')
         ftp.storbinary('STOR ' + filename, myfile)
 
         myfile.close()
 
-        os.remove('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename)
+        os.remove(fileroute + filename)
 
         return HttpResponse(Center_shoulder_max, status=200)
         # else:
