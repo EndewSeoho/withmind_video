@@ -66,25 +66,25 @@ def get_state_dict(origin_dict):
 # 초기화
 def Initialization():
     # face detector. OpenCV SSD
-    FD_Net = cv2.dnn.readNetFromCaffe(".models/opencv_ssd.prototxt", ".models/opencv_ssd.caffemodel")
+    FD_Net = cv2.dnn.readNetFromCaffe("./models/opencv_ssd.prototxt", ".models/opencv_ssd.caffemodel")
     # FD_Net = cv2.dnn.readNetFromCaffe("home/ubuntu/IM_result/withmind_video/im_video/models/opencv_ssd.prototxt", "home/ubuntu/IM_result/withmind_video/im_video//models/opencv_ssd.caffemodel")
 
     # Landmark 모델
     Landmark_Net = LandmarkNet(3, 3)
     # Landmark_Net = torch.nn.DataParallel(Landmark_Net).to(device)
     Landmark_Net = Landmark_Net.to(device)
-    Landmark_Net.load_state_dict(torch.load(".models/ETRI_LANDMARK_68pt.pth.tar", map_location=device)['state_dict'])
+    Landmark_Net.load_state_dict(torch.load("./models/ETRI_LANDMARK_68pt.pth.tar", map_location=device)['state_dict'])
     # Landmark_Net.load_state_dict(torch.load("home/ubuntu/IM_result/withmind_video/im_video//models/ETRI_LANDMARK_68pt.pth.tar", map_location=device)['state_dict'])
 
     # Headpose 모델
     Headpose_Net = HeadposeNet(torchvision.models.resnet.Bottleneck, [3, 4, 6, 3], 66)
     Headpose_Net = Headpose_Net.to(device)
-    Headpose_Net.load_state_dict(torch.load(".models/ETRI_HEAD_POSE.pth.tar"))
+    Headpose_Net.load_state_dict(torch.load("./models/ETRI_HEAD_POSE.pth.tar"))
     # Headpose_Net.load_state_dict(torch.load("home/ubuntu/IM_result/withmind_video/im_video//models/ETRI_HEAD_POSE.pth.tar"))
 
     # Emotion classifier
     Emotion_Net = EmotionNet(num_classes=7).to(device)
-    new_dict = get_state_dict(torch.load(".models/ETRI_Emotion.pth.tar")['state_dict'])
+    new_dict = get_state_dict(torch.load("./models/ETRI_Emotion.pth.tar")['state_dict'])
     # new_dict = get_state_dict(torch.load("home/ubuntu/IM_result/withmind_video/im_video//models/ETRI_EMOTION.pth.tar")['state_dict'])
     Emotion_Net.load_state_dict(new_dict)
 
