@@ -412,7 +412,7 @@ def soundcheck(self):
     sound = AudioFileClip(self)  # self = .mp4
 
     shortsound = sound.subclip("00:00:01", "00:00:15")  # audio from 1 to 15 seconds
-    fileroute = 'home/ubuntu/IM_result/withmind_video/im_video/'
+    fileroute = '/home/ubuntu/IM_result/withmind_video/im_video/'
     filename = 'sound.wav'
     shortsound.write_audiofile(fileroute + filename, 44100, 2, 2000, "pcm_s32le")
 
