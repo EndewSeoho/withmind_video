@@ -121,7 +121,7 @@ class IM_video_Anaylysis(APIView):
         bReady = True
         if vc.isOpened() == False:
             bReady = False
-            print("Error : Cam is not opened.")
+            # print("Error : Cam is not opened.")
 
         while (bReady):
             # Frame read
@@ -266,7 +266,7 @@ class IM_video_Anaylysis(APIView):
                             else:
                                 if len(Left_shoulder_move_list) > 3:
                                     Left_shoulder_move_count += 1
-                                    print('1111111')
+                                    # print('1111111')
                                 Left_shoulder_move_list = []
 
                             if right_shoulder[1] >= landmark_no5_y:
@@ -274,7 +274,7 @@ class IM_video_Anaylysis(APIView):
                             else:
                                 if len(Right_shoulder_move_list) > 3:
                                     Right_shoulder_move_count += 1
-                                    print('2222222')
+                                    # print('2222222')
                                 Right_shoulder_move_list = []
 
                             # 어깨 좌우 움직임 count
@@ -283,7 +283,7 @@ class IM_video_Anaylysis(APIView):
                             else:
                                 if len(Center_shoulder_leftmove_list) > 3:
                                     Center_shoulder_leftmove_count += 1
-                                    print('333333')
+                                    # print('333333')
                                 Center_shoulder_leftmove_list = []
 
                             if center_shoulder[0] >= landmark_no17_x:
@@ -291,7 +291,7 @@ class IM_video_Anaylysis(APIView):
                             else:
                                 if len(Center_shoulder_rightmove_list) > 3:
                                     Center_shoulder_rightmove_count += 1
-                                    print('4444')
+                                    # print('4444')
                                 Center_shoulder_rightmove_list = []
 
                             # 어깨 기울기
@@ -322,12 +322,12 @@ class IM_video_Anaylysis(APIView):
         # print(Face_count_list.count(1))
 
         Face_count_no_one = len(Face_count_list) - Face_count_list.count(1)
-        print(Face_count_no_one)
+        # print(Face_count_no_one)
         if Face_count_no_one * 5 >= (FPS * 7):
-            print("분석 ㄴㄴ")
+            # print("분석 ㄴㄴ")
             Face_analy_result = False
         else:
-            print("분석 ok")
+            # print("분석 ok")
             Face_analy_result = True
 
         # 감정 분석 결과 연산
@@ -340,7 +340,7 @@ class IM_video_Anaylysis(APIView):
         Emotion_angry = 0
         Emotion_neutral = 0
 
-        print(len(Emotion_list))
+        # print(len(Emotion_list))
         for i in range(len(Emotion_list)):
             Emotion_surprise = Emotion_surprise + Emotion_list[i][0]
             Emotion_fear = Emotion_fear + Emotion_list[i][1]
@@ -356,106 +356,106 @@ class IM_video_Anaylysis(APIView):
         Emotion_sadness_mean = Emotion_sadness * 100 / len(Emotion_list)
         Emotion_angry_mean = Emotion_angry * 100 / len(Emotion_list)
         Emotion_neutral_mean = Emotion_neutral * 100 / len(Emotion_list)
-        print("놀람", Emotion_surprise_mean, "%")
-        print("공포", Emotion_fear_mean, "%")
-        print("역겨움", Emotion_disgust_mean, "%")
-        print("행복", Emotion_happy_mean, "%")
-        print("슬픔", Emotion_sadness_mean, "%")
-        print("화남", Emotion_angry_mean, "%")
-        print("중립", Emotion_neutral_mean, "%")
-        summmmm = Emotion_surprise_mean + Emotion_fear_mean + Emotion_disgust_mean + Emotion_happy_mean + Emotion_sadness_mean + Emotion_angry_mean + Emotion_neutral_mean
-        print('합', summmmm)
+        # print("놀람", Emotion_surprise_mean, "%")
+        # print("공포", Emotion_fear_mean, "%")
+        # print("역겨움", Emotion_disgust_mean, "%")
+        # print("행복", Emotion_happy_mean, "%")
+        # print("슬픔", Emotion_sadness_mean, "%")
+        # print("화남", Emotion_angry_mean, "%")
+        # print("중립", Emotion_neutral_mean, "%")
+        # summmmm = Emotion_surprise_mean + Emotion_fear_mean + Emotion_disgust_mean + Emotion_happy_mean + Emotion_sadness_mean + Emotion_angry_mean + Emotion_neutral_mean
+        # print('합', summmmm)
 
         # 시선 분석 결과
-        print(len(Gaze_list))
+        # print(len(Gaze_list))
 
         # 얼굴 각도 결과
-        print(len(Roll_list))
+        # print(len(Roll_list))
         Roll_sum = 0
         for ii in range(len(Roll_list)):
             Roll_sum = Roll_sum + Roll_list[ii]
         Roll_mean = Roll_sum / len(Roll_list)
-        print("얼굴 각도 평균", Roll_mean)
+        # print("얼굴 각도 평균", Roll_mean)
 
         # 어깨 각도 결과
-        print(len(Shoulder_slope_list))
+        # print(len(Shoulder_slope_list))
         Shoulder_slope_sum = 0
         for iii in range(len(Shoulder_slope_list)):
             Shoulder_slope_sum = Shoulder_slope_sum + Shoulder_slope_list[iii]
         Shoulder_slope_mean = Shoulder_slope_sum / len(Shoulder_slope_list)
-        print("어깨 각도 평균", Shoulder_slope_mean)
+        # print("어깨 각도 평균", Shoulder_slope_mean)
 
         # 어깨 움직임 결과
-        print("왼쪽어", (Left_shoulder_list))
+        # print("왼쪽어", (Left_shoulder_list))
         Left_shoulder_max_y = max(t[1] for t in Left_shoulder_list)
         for x, y in enumerate(Left_shoulder_list):
             if Left_shoulder_max_y in y:
                 Left_shoulder_max = y
-        print(Left_shoulder_max)
+        # print(Left_shoulder_max)
 
         Left_shoulder_min_y = min(t[1] for t in Left_shoulder_list)
         for x, y in enumerate(Left_shoulder_list):
             if Left_shoulder_min_y in y:
                 Left_shoulder_min = y
-        print(Left_shoulder_min)
+        # print(Left_shoulder_min)
 
-        print("오른쪽어", Right_shoulder_list)
+        # print("오른쪽어", Right_shoulder_list)
         Right_shoulder_max_y = max(t[1] for t in Right_shoulder_list)
         for x, y in enumerate(Right_shoulder_list):
             if Right_shoulder_max_y in y:
                 Right_shoulder_max = y
-        print(Right_shoulder_max)
+        # print(Right_shoulder_max)
 
         Right_shoulder_min_y = min(t[1] for t in Right_shoulder_list)
         for x, y in enumerate(Right_shoulder_list):
             if Right_shoulder_min_y in y:
                 Right_shoulder_min = y
-        print(Right_shoulder_min)
+        # print(Right_shoulder_min)
 
-        print("가운데어", Center_shoulder_list)
+        # print("가운데어", Center_shoulder_list)
         Center_shoulder_max_x = max(t[0] for t in Center_shoulder_list)
         for x, y in enumerate(Center_shoulder_list):
             if Center_shoulder_max_x in y:
                 Center_shoulder_max = y
-        print(Center_shoulder_max)
+        # print(Center_shoulder_max)
 
         Center_shoulder_min_x = min(t[0] for t in Center_shoulder_list)
         for x, y in enumerate(Center_shoulder_list):
             if Center_shoulder_min_x in y:
                 Center_shoulder_min = y
-        print(Center_shoulder_min)
+        # print(Center_shoulder_min)
 
         # 손
         # print("손", Hand_list)
         # print(len(Hand_list))
         # print(Hand_count)
-        # Hand_time = float(len(Hand_time_list) / 6)
+        Hand_time = float(len(Hand_time_list) / 6)
         # print("손 등장 시간", Hand_time)
         # print("손 좌표", Hand_point_result)
 
 
         # 손222222
-        print("왼손 횟수", Left_Hand_count)
+        # print("왼손 횟수", Left_Hand_count)
         Left_Hand_time = float(len(Left_Hand_time_list) / 6)
-        print("왼손 시간", Left_Hand_time)
-        print("왼손 좌표", Left_Hand_point_result)
-
-        print("오른손 횟수", Right_Hand_count)
+        # print("왼손 시간", Left_Hand_time)
+        # print("왼손 좌표", Left_Hand_point_result)
+        #
+        # print("오른손 횟수", Right_Hand_count)
         Right_Hand_time = float(len(Right_Hand_time_list) / 6)
-        print("오른손 시간", Right_Hand_time)
-        print("오른손 좌표", Right_Hand_point_result)
-
-
-        # 어깨 움직임 체크 위아래
-        print("왼쪽 어깨 움직임", Left_shoulder_move_count)
-        print("오른쪽 어깨 움직임", Right_shoulder_move_count)
-
-        # 어깨 움직임 체크 좌우
-        print("왼쪽방향으로 움직임", Center_shoulder_leftmove_count)
-        print("오른쪽방향으로 움직임", Center_shoulder_rightmove_count)
-        # print("Done")
-
-        print(Face_analy_result)
+        # print("오른손 시간", Right_Hand_time)
+        # print("오른손 좌표", Right_Hand_point_result)
+        #
+        #
+        # # 어깨 움직임 체크 위아래
+        # print("왼쪽 어깨 움직임", Left_shoulder_move_count)
+        # print("오른쪽 어깨 움직임", Right_shoulder_move_count)
+        #
+        # # 어깨 움직임 체크 좌우
+        # print("왼쪽방향으로 움직임", Center_shoulder_leftmove_count)
+        # print("오른쪽방향으로 움직임", Center_shoulder_rightmove_count)
+        # # print("Done")
+        #
+        # print(Face_analy_result)
 
 
         # json 저장
@@ -495,6 +495,6 @@ class IM_video_Anaylysis(APIView):
 
         os.remove(fileroute + filename)
 
-        return HttpResponse(Center_shoulder_max, status=200)
+        return HttpResponse("Done", status=200)
         # else:
         #     return Response('Fail', status=status.HTTP_200_OK)
