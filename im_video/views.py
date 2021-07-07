@@ -16,6 +16,7 @@ from PIL import Image
 from collections import OrderedDict
 import os
 from ftplib import FTP
+import torch
 
 
 # @api_view(['GET'])
@@ -494,6 +495,8 @@ class IM_video_Anaylysis(APIView):
         myfile.close()
 
         os.remove(fileroute + filename)
+
+        torch.cuda.empty_cache()
 
         return HttpResponse("Done", status=200)
         # else:
