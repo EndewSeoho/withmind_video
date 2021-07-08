@@ -1,15 +1,6 @@
-from rest_framework import viewsets, permissions, generics, status
-from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from .models import Result
-from django.core import serializers
-from .serializer import ResultSerializer
-import cv2
 import copy
 from .Face_Information import *
-import imutils
-from django.http import JsonResponse
 import json
 from django.http import HttpResponse
 from PIL import Image
@@ -18,21 +9,8 @@ import os
 from ftplib import FTP
 import torch
 
-
-# @api_view(['GET'])
-# def testAPI(request):
-#     return Response("연결완료")
-
-# @api_view(['POST'])
 class IM_video_Anaylysis(APIView):
     def post(self, request):
-        # input_serializer = InputSerializer(data=request.data)
-        #
-        # if input_serializer.is_valid():
-        #     userkey = input_serializer.data.get('userkey')
-        #     videoNo = input_serializer.data.get('videoNo')
-        #     videoaddress = input_serializer.data.get('videobyte')
-
         insert_data = json.loads(request.body)
         userkey = insert_data.get('userkey')
         videoNo = insert_data.get('videoNo')
@@ -43,7 +21,7 @@ class IM_video_Anaylysis(APIView):
         # model initialization
         FD_Net, Landmark_Net, Headpose_Net, Emotion_Net = Initialization()
 
-        hand_detector = hand_Detector()
+        # hand_detector = hand_Detector()
         pose_detector = pose_Detecor()
 
         # opencv cam initialization
@@ -75,11 +53,11 @@ class IM_video_Anaylysis(APIView):
         # 좌우 어깨 중간값 리스트
         Center_shoulder_list = []
         # 손 체크 리스트
-        Hand_list = []
-        Hand_count = 0
-        Hand_time_list = []
-        Hand_point_list = []
-        Hand_point_result = []
+        # Hand_list = []
+        # Hand_count = 0
+        # Hand_time_list = []
+        # Hand_point_list = []
+        # Hand_point_result = []
 
 
         # 손 체크 리스트 2222
@@ -131,7 +109,6 @@ class IM_video_Anaylysis(APIView):
                     img = frame
                     img_show = copy.deepcopy(img)
 
-                    test = Image.fromarray(img)
                     # print("dpi:", test.info)
                     list_Face = []
 
@@ -426,7 +403,7 @@ class IM_video_Anaylysis(APIView):
         # print("손", Hand_list)
         # print(len(Hand_list))
         # print(Hand_count)
-        Hand_time = float(len(Hand_time_list) / 3)
+        # Hand_time = float(len(Hand_time_list) / 3)
         # print("손 등장 시간", Hand_time)
         # print("손 좌표", Hand_point_result)
 

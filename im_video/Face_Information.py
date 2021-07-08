@@ -21,7 +21,7 @@ import librosa
 # device 설정. CUDA 사용가능하면 CUDA 모드로, 못 쓰면 CPU 모드로 동작
 # 단 cpu로 연산 할 경우 인식 함수 내 코드 수정 필요.
 # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-device = "cuda"
+# device = "cuda"
 
 
 # 얼굴 정보를 담을 class
