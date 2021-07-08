@@ -314,183 +314,183 @@ class IM_video_Anaylysis(APIView):
 
         # print("종료", time.time())
 
-        # 얼굴 개수 확인
-        # print(Face_count_list)
-        # print(Face_count_list.count(1))
-
-        Face_count_no_one = len(Face_count_list) - Face_count_list.count(1)
-        # print(Face_count_no_one)
-        if Face_count_no_one * 10 >= (FPS * 7):
-            # print("분석 ㄴㄴ")
-            Face_analy_result = False
-        else:
-            # print("분석 ok")
-            Face_analy_result = True
-
-        # 감정 분석 결과 연산
-
-        Emotion_surprise = 0
-        Emotion_fear = 0
-        Emotion_disgust = 0
-        Emotion_happy = 0
-        Emotion_sadness = 0
-        Emotion_angry = 0
-        Emotion_neutral = 0
-
-        # print(len(Emotion_list))
-        for i in range(len(Emotion_list)):
-            Emotion_surprise = Emotion_surprise + Emotion_list[i][0]
-            Emotion_fear = Emotion_fear + Emotion_list[i][1]
-            Emotion_disgust = Emotion_disgust + Emotion_list[i][2]
-            Emotion_happy = Emotion_happy + Emotion_list[i][3]
-            Emotion_sadness = Emotion_sadness + Emotion_list[i][4]
-            Emotion_angry = Emotion_angry + Emotion_list[i][5]
-            Emotion_neutral = Emotion_neutral + Emotion_list[i][6]
-        Emotion_surprise_mean = Emotion_surprise * 100 / len(Emotion_list)
-        Emotion_fear_mean = Emotion_fear * 100 / len(Emotion_list)
-        Emotion_disgust_mean = Emotion_disgust * 100 / len(Emotion_list)
-        Emotion_happy_mean = Emotion_happy * 100 / len(Emotion_list)
-        Emotion_sadness_mean = Emotion_sadness * 100 / len(Emotion_list)
-        Emotion_angry_mean = Emotion_angry * 100 / len(Emotion_list)
-        Emotion_neutral_mean = Emotion_neutral * 100 / len(Emotion_list)
-        # print("놀람", Emotion_surprise_mean, "%")
-        # print("공포", Emotion_fear_mean, "%")
-        # print("역겨움", Emotion_disgust_mean, "%")
-        # print("행복", Emotion_happy_mean, "%")
-        # print("슬픔", Emotion_sadness_mean, "%")
-        # print("화남", Emotion_angry_mean, "%")
-        # print("중립", Emotion_neutral_mean, "%")
-        # summmmm = Emotion_surprise_mean + Emotion_fear_mean + Emotion_disgust_mean + Emotion_happy_mean + Emotion_sadness_mean + Emotion_angry_mean + Emotion_neutral_mean
-        # print('합', summmmm)
-
-        # 시선 분석 결과
-        # print(len(Gaze_list))
-
-        # 얼굴 각도 결과
-        # print(len(Roll_list))
-        Roll_sum = 0
-        for ii in range(len(Roll_list)):
-            Roll_sum = Roll_sum + Roll_list[ii]
-        Roll_mean = Roll_sum / len(Roll_list)
-        # print("얼굴 각도 평균", Roll_mean)
-
-        # 어깨 각도 결과
-        # print(len(Shoulder_slope_list))
-        Shoulder_slope_sum = 0
-        for iii in range(len(Shoulder_slope_list)):
-            Shoulder_slope_sum = Shoulder_slope_sum + Shoulder_slope_list[iii]
-        Shoulder_slope_mean = Shoulder_slope_sum / len(Shoulder_slope_list)
-        # print("어깨 각도 평균", Shoulder_slope_mean)
-
-        # 어깨 움직임 결과
-        # print("왼쪽어", (Left_shoulder_list))
-        Left_shoulder_max_y = max(t[1] for t in Left_shoulder_list)
-        for x, y in enumerate(Left_shoulder_list):
-            if Left_shoulder_max_y in y:
-                Left_shoulder_max = y
-        # print(Left_shoulder_max)
-
-        Left_shoulder_min_y = min(t[1] for t in Left_shoulder_list)
-        for x, y in enumerate(Left_shoulder_list):
-            if Left_shoulder_min_y in y:
-                Left_shoulder_min = y
-        # print(Left_shoulder_min)
-
-        # print("오른쪽어", Right_shoulder_list)
-        Right_shoulder_max_y = max(t[1] for t in Right_shoulder_list)
-        for x, y in enumerate(Right_shoulder_list):
-            if Right_shoulder_max_y in y:
-                Right_shoulder_max = y
-        # print(Right_shoulder_max)
-
-        Right_shoulder_min_y = min(t[1] for t in Right_shoulder_list)
-        for x, y in enumerate(Right_shoulder_list):
-            if Right_shoulder_min_y in y:
-                Right_shoulder_min = y
-        # print(Right_shoulder_min)
-
-        # print("가운데어", Center_shoulder_list)
-        Center_shoulder_max_x = max(t[0] for t in Center_shoulder_list)
-        for x, y in enumerate(Center_shoulder_list):
-            if Center_shoulder_max_x in y:
-                Center_shoulder_max = y
-        # print(Center_shoulder_max)
-
-        Center_shoulder_min_x = min(t[0] for t in Center_shoulder_list)
-        for x, y in enumerate(Center_shoulder_list):
-            if Center_shoulder_min_x in y:
-                Center_shoulder_min = y
-        # print(Center_shoulder_min)
-
-        # 손
-        # print("손", Hand_list)
-        # print(len(Hand_list))
-        # print(Hand_count)
-        Hand_time = float(len(Hand_time_list) / 3)
-        # print("손 등장 시간", Hand_time)
-        # print("손 좌표", Hand_point_result)
-
-
-        # 손222222
-        # print("왼손 횟수", Left_Hand_count)
-        Left_Hand_time = float(len(Left_Hand_time_list) / 3)
-        # print("왼손 시간", Left_Hand_time)
-        # print("왼손 좌표", Left_Hand_point_result)
+        # # 얼굴 개수 확인
+        # # print(Face_count_list)
+        # # print(Face_count_list.count(1))
         #
-        # print("오른손 횟수", Right_Hand_count)
-        Right_Hand_time = float(len(Right_Hand_time_list) / 3)
-        # print("오른손 시간", Right_Hand_time)
-        # print("오른손 좌표", Right_Hand_point_result)
+        # Face_count_no_one = len(Face_count_list) - Face_count_list.count(1)
+        # # print(Face_count_no_one)
+        # if Face_count_no_one * 10 >= (FPS * 7):
+        #     # print("분석 ㄴㄴ")
+        #     Face_analy_result = False
+        # else:
+        #     # print("분석 ok")
+        #     Face_analy_result = True
+        #
+        # # 감정 분석 결과 연산
+        #
+        # Emotion_surprise = 0
+        # Emotion_fear = 0
+        # Emotion_disgust = 0
+        # Emotion_happy = 0
+        # Emotion_sadness = 0
+        # Emotion_angry = 0
+        # Emotion_neutral = 0
+        #
+        # # print(len(Emotion_list))
+        # for i in range(len(Emotion_list)):
+        #     Emotion_surprise = Emotion_surprise + Emotion_list[i][0]
+        #     Emotion_fear = Emotion_fear + Emotion_list[i][1]
+        #     Emotion_disgust = Emotion_disgust + Emotion_list[i][2]
+        #     Emotion_happy = Emotion_happy + Emotion_list[i][3]
+        #     Emotion_sadness = Emotion_sadness + Emotion_list[i][4]
+        #     Emotion_angry = Emotion_angry + Emotion_list[i][5]
+        #     Emotion_neutral = Emotion_neutral + Emotion_list[i][6]
+        # Emotion_surprise_mean = Emotion_surprise * 100 / len(Emotion_list)
+        # Emotion_fear_mean = Emotion_fear * 100 / len(Emotion_list)
+        # Emotion_disgust_mean = Emotion_disgust * 100 / len(Emotion_list)
+        # Emotion_happy_mean = Emotion_happy * 100 / len(Emotion_list)
+        # Emotion_sadness_mean = Emotion_sadness * 100 / len(Emotion_list)
+        # Emotion_angry_mean = Emotion_angry * 100 / len(Emotion_list)
+        # Emotion_neutral_mean = Emotion_neutral * 100 / len(Emotion_list)
+        # # print("놀람", Emotion_surprise_mean, "%")
+        # # print("공포", Emotion_fear_mean, "%")
+        # # print("역겨움", Emotion_disgust_mean, "%")
+        # # print("행복", Emotion_happy_mean, "%")
+        # # print("슬픔", Emotion_sadness_mean, "%")
+        # # print("화남", Emotion_angry_mean, "%")
+        # # print("중립", Emotion_neutral_mean, "%")
+        # # summmmm = Emotion_surprise_mean + Emotion_fear_mean + Emotion_disgust_mean + Emotion_happy_mean + Emotion_sadness_mean + Emotion_angry_mean + Emotion_neutral_mean
+        # # print('합', summmmm)
+        #
+        # # 시선 분석 결과
+        # # print(len(Gaze_list))
+        #
+        # # 얼굴 각도 결과
+        # # print(len(Roll_list))
+        # Roll_sum = 0
+        # for ii in range(len(Roll_list)):
+        #     Roll_sum = Roll_sum + Roll_list[ii]
+        # Roll_mean = Roll_sum / len(Roll_list)
+        # # print("얼굴 각도 평균", Roll_mean)
+        #
+        # # 어깨 각도 결과
+        # # print(len(Shoulder_slope_list))
+        # Shoulder_slope_sum = 0
+        # for iii in range(len(Shoulder_slope_list)):
+        #     Shoulder_slope_sum = Shoulder_slope_sum + Shoulder_slope_list[iii]
+        # Shoulder_slope_mean = Shoulder_slope_sum / len(Shoulder_slope_list)
+        # # print("어깨 각도 평균", Shoulder_slope_mean)
+        #
+        # # 어깨 움직임 결과
+        # # print("왼쪽어", (Left_shoulder_list))
+        # Left_shoulder_max_y = max(t[1] for t in Left_shoulder_list)
+        # for x, y in enumerate(Left_shoulder_list):
+        #     if Left_shoulder_max_y in y:
+        #         Left_shoulder_max = y
+        # # print(Left_shoulder_max)
+        #
+        # Left_shoulder_min_y = min(t[1] for t in Left_shoulder_list)
+        # for x, y in enumerate(Left_shoulder_list):
+        #     if Left_shoulder_min_y in y:
+        #         Left_shoulder_min = y
+        # # print(Left_shoulder_min)
+        #
+        # # print("오른쪽어", Right_shoulder_list)
+        # Right_shoulder_max_y = max(t[1] for t in Right_shoulder_list)
+        # for x, y in enumerate(Right_shoulder_list):
+        #     if Right_shoulder_max_y in y:
+        #         Right_shoulder_max = y
+        # # print(Right_shoulder_max)
+        #
+        # Right_shoulder_min_y = min(t[1] for t in Right_shoulder_list)
+        # for x, y in enumerate(Right_shoulder_list):
+        #     if Right_shoulder_min_y in y:
+        #         Right_shoulder_min = y
+        # # print(Right_shoulder_min)
+        #
+        # # print("가운데어", Center_shoulder_list)
+        # Center_shoulder_max_x = max(t[0] for t in Center_shoulder_list)
+        # for x, y in enumerate(Center_shoulder_list):
+        #     if Center_shoulder_max_x in y:
+        #         Center_shoulder_max = y
+        # # print(Center_shoulder_max)
+        #
+        # Center_shoulder_min_x = min(t[0] for t in Center_shoulder_list)
+        # for x, y in enumerate(Center_shoulder_list):
+        #     if Center_shoulder_min_x in y:
+        #         Center_shoulder_min = y
+        # # print(Center_shoulder_min)
+        #
+        # # 손
+        # # print("손", Hand_list)
+        # # print(len(Hand_list))
+        # # print(Hand_count)
+        # Hand_time = float(len(Hand_time_list) / 3)
+        # # print("손 등장 시간", Hand_time)
+        # # print("손 좌표", Hand_point_result)
         #
         #
-        # # 어깨 움직임 체크 위아래
-        # print("왼쪽 어깨 움직임", Left_shoulder_move_count)
-        # print("오른쪽 어깨 움직임", Right_shoulder_move_count)
+        # # 손222222
+        # # print("왼손 횟수", Left_Hand_count)
+        # Left_Hand_time = float(len(Left_Hand_time_list) / 3)
+        # # print("왼손 시간", Left_Hand_time)
+        # # print("왼손 좌표", Left_Hand_point_result)
+        # #
+        # # print("오른손 횟수", Right_Hand_count)
+        # Right_Hand_time = float(len(Right_Hand_time_list) / 3)
+        # # print("오른손 시간", Right_Hand_time)
+        # # print("오른손 좌표", Right_Hand_point_result)
+        # #
+        # #
+        # # # 어깨 움직임 체크 위아래
+        # # print("왼쪽 어깨 움직임", Left_shoulder_move_count)
+        # # print("오른쪽 어깨 움직임", Right_shoulder_move_count)
+        # #
+        # # # 어깨 움직임 체크 좌우
+        # # print("왼쪽방향으로 움직임", Center_shoulder_leftmove_count)
+        # # print("오른쪽방향으로 움직임", Center_shoulder_rightmove_count)
+        # # # print("Done")
+        # #
+        # # print(Face_analy_result)
         #
-        # # 어깨 움직임 체크 좌우
-        # print("왼쪽방향으로 움직임", Center_shoulder_leftmove_count)
-        # print("오른쪽방향으로 움직임", Center_shoulder_rightmove_count)
-        # # print("Done")
         #
-        # print(Face_analy_result)
-
-
-        # json 저장
-
-        result_data = OrderedDict()
-
-        result_data["userkey"] = userkey
-        result_data["videoNo"] = videoNo
-        result_data["result"] = {"face_check": Face_analy_result, "sound_check": sound_confirm, "emotion_surprise": Emotion_surprise_mean, "emotion_fear": Emotion_fear_mean, "emotion_aversion": Emotion_disgust_mean, "emotion_happy": Emotion_happy_mean, "emotion_sadness": Emotion_sadness_mean,
-                                 "emotion_angry": Emotion_angry_mean, "emotion_neutral": Emotion_neutral_mean, "gaze": Gaze_list, "face_angle": Roll_mean, "shoulder_angle": Shoulder_slope_mean,
-                                 "left_shoulder": {"high_spot": Left_shoulder_max, "low_spot": Left_shoulder_min, "move_count": Left_shoulder_move_count},
-                                 "right_shoulder": {"high_spot": Right_shoulder_max, "low_spot": Right_shoulder_min, "move_count": Right_shoulder_move_count},
-                                 "center_shoulder": {"left_spot": Center_shoulder_min, "right_spot": Center_shoulder_max, "left_move_count": Center_shoulder_leftmove_count, "right_move_count": Center_shoulder_rightmove_count},
-                                 "left_hand": {"time": Left_Hand_time, "count": Left_Hand_count, "point": Left_Hand_point_result},
-                                 "right_hand": {"time": Right_Hand_time, "count": Right_Hand_count, "point": Right_Hand_point_result}}
-
-
-        with open('/home/ubuntu/projects/withmind_video/im_video/%d_%d_result.json' % (int(userkey), int(videoNo)), 'w', encoding='utf-8') as make_file:
-             json.dump(result_data, make_file, ensure_ascii=False, indent="\t")
-
-
-
-        ftp = FTP()
-
-        ftp.connect('withmind.cache.smilecdn.com', 21)
-        ftp.login('withmind', 'dnlemakdlsem1!')
-        ftp.cwd('./analy_result')
-        filename = '%d_%d_result.json' % (int(userkey), int(videoNo))
-        # myfile = open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename, 'wb')
-        # with open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename) as contents:
-        #     ftp.storbinary('STOR %s' % filename, contents)
-        fileroute = '/home/ubuntu/projects/withmind_video/im_video/'
-        myfile = open(fileroute + filename, 'rb')
-        ftp.storbinary('STOR ' + filename, myfile)
-
-        myfile.close()
-
-        os.remove(fileroute + filename)
+        # # json 저장
+        #
+        # result_data = OrderedDict()
+        #
+        # result_data["userkey"] = userkey
+        # result_data["videoNo"] = videoNo
+        # result_data["result"] = {"face_check": Face_analy_result, "sound_check": sound_confirm, "emotion_surprise": Emotion_surprise_mean, "emotion_fear": Emotion_fear_mean, "emotion_aversion": Emotion_disgust_mean, "emotion_happy": Emotion_happy_mean, "emotion_sadness": Emotion_sadness_mean,
+        #                          "emotion_angry": Emotion_angry_mean, "emotion_neutral": Emotion_neutral_mean, "gaze": Gaze_list, "face_angle": Roll_mean, "shoulder_angle": Shoulder_slope_mean,
+        #                          "left_shoulder": {"high_spot": Left_shoulder_max, "low_spot": Left_shoulder_min, "move_count": Left_shoulder_move_count},
+        #                          "right_shoulder": {"high_spot": Right_shoulder_max, "low_spot": Right_shoulder_min, "move_count": Right_shoulder_move_count},
+        #                          "center_shoulder": {"left_spot": Center_shoulder_min, "right_spot": Center_shoulder_max, "left_move_count": Center_shoulder_leftmove_count, "right_move_count": Center_shoulder_rightmove_count},
+        #                          "left_hand": {"time": Left_Hand_time, "count": Left_Hand_count, "point": Left_Hand_point_result},
+        #                          "right_hand": {"time": Right_Hand_time, "count": Right_Hand_count, "point": Right_Hand_point_result}}
+        #
+        #
+        # with open('/home/ubuntu/projects/withmind_video/im_video/%d_%d_result.json' % (int(userkey), int(videoNo)), 'w', encoding='utf-8') as make_file:
+        #      json.dump(result_data, make_file, ensure_ascii=False, indent="\t")
+        #
+        #
+        #
+        # ftp = FTP()
+        #
+        # ftp.connect('withmind.cache.smilecdn.com', 21)
+        # ftp.login('withmind', 'dnlemakdlsem1!')
+        # ftp.cwd('./analy_result')
+        # filename = '%d_%d_result.json' % (int(userkey), int(videoNo))
+        # # myfile = open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename, 'wb')
+        # # with open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename) as contents:
+        # #     ftp.storbinary('STOR %s' % filename, contents)
+        # fileroute = '/home/ubuntu/projects/withmind_video/im_video/'
+        # myfile = open(fileroute + filename, 'rb')
+        # ftp.storbinary('STOR ' + filename, myfile)
+        #
+        # myfile.close()
+        #
+        # os.remove(fileroute + filename)
 
         # torch.cuda.empty_cache()
 
