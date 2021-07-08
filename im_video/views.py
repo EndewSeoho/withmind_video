@@ -492,6 +492,8 @@ class IM_video_Anaylysis(APIView):
 
         os.remove(fileroute + filename)
 
+        torch.cuda.empty_cache()
+
         return HttpResponse("Done", status=200)
         # else:
         #     return Response('Fail', status=status.HTTP_200_OK)
