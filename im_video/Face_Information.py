@@ -142,6 +142,7 @@ def Face_Detection(FD_Net, cvImg, list_Face):
 
             list_Face.append(ef)
 
+    torch.cuda.empty_cache()
     return len(list_Face)
 
 # landmark 검출
@@ -203,6 +204,8 @@ def Landmark_Detection(Landmark_Net, cvImg, list_Face, nIndex):
     list_Face[nIndex].ptRM = [int(output_np[54 * 2 + 0]), int(output_np[54 * 2 + 1])]
     list_Face[nIndex].ptN = [int(output_np[30 * 2 + 0]), int(output_np[30 * 2 + 1])]
 
+    torch.cuda.empty_cache()
+
     return output_np
 
 
@@ -251,6 +254,8 @@ def HeadPose_Estimation(HeadPose_Net, cvImg, list_Face, nIndex):
     list_Face[nIndex].fPitch = pitch_predicted
     list_Face[nIndex].fRoll = roll_predicted
 
+    torch.cuda.empty_cache()
+
     return (yaw_predicted, pitch_predicted, roll_predicted)
 
 
@@ -295,6 +300,7 @@ def Emotion_Classification(Emotion_Net, cvImg, list_Face, nIndex):
     for ii in range(7):
         list_Face[nIndex].fEmotionScore[ii] = output[ii]
 
+    torch.cuda.empty_cache()
 
 def Gaze_Regression(list_Face, nIndex):
     if list_Face[nIndex].ptLE == [-1, -1] or list_Face[nIndex].fYaw == -1:
@@ -309,6 +315,8 @@ def Gaze_Regression(list_Face, nIndex):
 
     list_Face[nIndex].ptLED = [list_Face[nIndex].ptLE[0] + normX, list_Face[nIndex].ptLE[1] + normY]
     list_Face[nIndex].ptRED = [list_Face[nIndex].ptRE[0] + normX, list_Face[nIndex].ptRE[1] + normY]
+
+    torch.cuda.empty_cache()
 
     return list_Face[nIndex].ptLED, list_Face[nIndex].ptRED
 

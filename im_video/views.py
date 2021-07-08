@@ -40,10 +40,6 @@ class IM_video_Anaylysis(APIView):
 
         print(userkey, videoNo, videoaddress)
 
-
-
-
-
         # model initialization
         FD_Net, Landmark_Net, Headpose_Net, Emotion_Net = Initialization()
 
@@ -495,8 +491,6 @@ class IM_video_Anaylysis(APIView):
         myfile.close()
 
         os.remove(fileroute + filename)
-
-        torch.cuda.empty_cache()
 
         return HttpResponse("Done", status=200)
         # else:
