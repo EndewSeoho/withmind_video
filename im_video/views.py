@@ -49,8 +49,8 @@ class IM_video_Anaylysis(APIView):
         # opencv cam initialization
         # vc = cv2.VideoCapture(url)
         vc = cv2.VideoCapture(videoaddress)
-        vc.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        vc.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        # vc.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        # vc.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
         FPS = cv2.CAP_PROP_FPS
         sound_confirm = soundcheck(videoaddress)
@@ -116,8 +116,8 @@ class IM_video_Anaylysis(APIView):
         Center_shoulder_rightmove_count = 0
 
         bReady = True
-        if vc.isOpened() == False:
-            bReady = False
+        # if vc.isOpened() == False:
+        #     bReady = False
             # print("Error : Cam is not opened.")
 
         while (bReady):
@@ -125,7 +125,7 @@ class IM_video_Anaylysis(APIView):
             ret, frame = vc.read()
             # print("시작", time.time())
             if ret:
-                if (int(vc.get(1)) % 5 == 0):
+                if (int(vc.get(1)) % 10 == 0):
                     # 좌우 반전하여 동일한 방향으로 보이게 설정.
                     frame = cv2.flip(frame, 1)
                     img = frame
@@ -244,9 +244,9 @@ class IM_video_Anaylysis(APIView):
                                 Right_Hand_point_list = []
 
                         # 어깨 추적
-                        if len(lmList_pose) > 13:
-                            cv2.circle(img_show, (lmList_pose[12][1], lmList_pose[12][2]), 8, (255, 255, 0), -1)
-                            cv2.circle(img_show, (lmList_pose[11][1], lmList_pose[11][2]), 8, (255, 255, 0), -1)
+                        # if len(lmList_pose) > 13:
+                        #     cv2.circle(img_show, (lmList_pose[12][1], lmList_pose[12][2]), 8, (255, 255, 0), -1)
+                        #     cv2.circle(img_show, (lmList_pose[11][1], lmList_pose[11][2]), 8, (255, 255, 0), -1)
 
                             left_shoulder = (lmList_pose[11][1], lmList_pose[11][2])
                             right_shoulder = (lmList_pose[12][1], lmList_pose[12][2])
@@ -320,7 +320,7 @@ class IM_video_Anaylysis(APIView):
 
         Face_count_no_one = len(Face_count_list) - Face_count_list.count(1)
         # print(Face_count_no_one)
-        if Face_count_no_one * 5 >= (FPS * 7):
+        if Face_count_no_one * 10 >= (FPS * 7):
             # print("분석 ㄴㄴ")
             Face_analy_result = False
         else:
@@ -426,19 +426,19 @@ class IM_video_Anaylysis(APIView):
         # print("손", Hand_list)
         # print(len(Hand_list))
         # print(Hand_count)
-        Hand_time = float(len(Hand_time_list) / 6)
+        Hand_time = float(len(Hand_time_list) / 3)
         # print("손 등장 시간", Hand_time)
         # print("손 좌표", Hand_point_result)
 
 
         # 손222222
         # print("왼손 횟수", Left_Hand_count)
-        Left_Hand_time = float(len(Left_Hand_time_list) / 6)
+        Left_Hand_time = float(len(Left_Hand_time_list) / 3)
         # print("왼손 시간", Left_Hand_time)
         # print("왼손 좌표", Left_Hand_point_result)
         #
         # print("오른손 횟수", Right_Hand_count)
-        Right_Hand_time = float(len(Right_Hand_time_list) / 6)
+        Right_Hand_time = float(len(Right_Hand_time_list) / 3)
         # print("오른손 시간", Right_Hand_time)
         # print("오른손 좌표", Right_Hand_point_result)
         #
@@ -492,9 +492,9 @@ class IM_video_Anaylysis(APIView):
 
         os.remove(fileroute + filename)
 
-        torch.cuda.empty_cache()
+        # torch.cuda.empty_cache()
 
-        os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+        # os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
         return HttpResponse("Done", status=200)
         # else:
