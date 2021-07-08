@@ -494,6 +494,8 @@ class IM_video_Anaylysis(APIView):
 
         torch.cuda.empty_cache()
 
+        os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
         return HttpResponse("Done", status=200)
         # else:
         #     return Response('Fail', status=status.HTTP_200_OK)
