@@ -450,6 +450,8 @@ class IM_video_Anaylysis(APIView):
         with open('/home/ubuntu/projects/withmind_video/im_video/%d_%d_result.json' % (int(userkey), int(videoNo)), 'w', encoding='utf-8') as make_file:
              json.dump(result_data, make_file, ensure_ascii=False, indent="\t")
 
+        # with open('C:/Users/withmind/Desktop/models/%d_%d_result.json' % (int(userkey), int(videoNo)), 'w', encoding='utf-8') as make_file:
+        #      json.dump(result_data, make_file, ensure_ascii=False, indent="\t")
 
 
         ftp = FTP()
@@ -462,6 +464,7 @@ class IM_video_Anaylysis(APIView):
         # with open('C:/Users/withmind/Documents/withmind/IM/01_python_pytorch_project/01_python_pytorch_project/video/im_video/' + filename) as contents:
         #     ftp.storbinary('STOR %s' % filename, contents)
         fileroute = '/home/ubuntu/projects/withmind_video/im_video/'
+        # fileroute = 'C:/Users/withmind/Desktop/models/'
         myfile = open(fileroute + filename, 'rb')
         ftp.storbinary('STOR ' + filename, myfile)
 
@@ -471,7 +474,7 @@ class IM_video_Anaylysis(APIView):
 
         torch.cuda.empty_cache()
 
-        os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+        # os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
         return HttpResponse("Done", status=200)
         # else:

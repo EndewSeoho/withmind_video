@@ -10,19 +10,23 @@ from PIL import Image
 import torch.nn.functional as F
 import math
 
-from .model import HeadposeNet
-from .model import LandmarkNet
-from .model import EmotionNet
+# from .model import HeadposeNet
+# from .model import LandmarkNet
+# from .model import EmotionNet
 
 from moviepy.editor import *
 import librosa
-
+from im_video.apps import *
 
 # device 설정. CUDA 사용가능하면 CUDA 모드로, 못 쓰면 CPU 모드로 동작
 # 단 cpu로 연산 할 경우 인식 함수 내 코드 수정 필요.
 # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # device = "cuda"
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # 얼굴 정보를 담을 class
 class Face:
@@ -48,52 +52,57 @@ class Face:
 
 
 
-def get_state_dict(origin_dict):
-    old_keys = origin_dict.keys()
-    new_dict = {}
-
-    for ii in old_keys:
-        temp_key = str(ii)
-        if temp_key[0:7] == "module.":
-            new_key = temp_key[7:]
-        else:
-            new_key = temp_key
-
-        new_dict[new_key] = origin_dict[temp_key]
-    return new_dict
+# def get_state_dict(origin_dict):
+#     old_keys = origin_dict.keys()
+#     new_dict = {}
+#
+#     for ii in old_keys:
+#         temp_key = str(ii)
+#         if temp_key[0:7] == "module.":
+#             new_key = temp_key[7:]
+#         else:
+#             new_key = temp_key
+#
+#         new_dict[new_key] = origin_dict[temp_key]
+#     return new_dict
 
 
 # 초기화
 def Initialization():
     # face detector. OpenCV SSD
-    # FD_Net = cv2.dnn.readNetFromCaffe("./models/opencv_ssd.prototxt", ".models/opencv_ssd.caffemodel")
-    FD_Net = cv2.dnn.readNetFromCaffe("/home/ubuntu/projects/withmind_video/im_video/file/opencv_ssd.prototxt", "/home/ubuntu/projects/withmind_video/im_video/file/opencv_ssd.caffemodel")
+    # FD_Net = cv2.dnn.readNetFromCaffe("C:/Users/withmind/Desktop/models/opencv_ssd.prototxt", "C:/Users/withmind/Desktop/models/opencv_ssd.caffemodel")
+    # FD_Net = cv2.dnn.readNetFromCaffe("/home/ubuntu/projects/withmind_video/im_video/file/opencv_ssd.prototxt", "/home/ubuntu/projects/withmind_video/im_video/file/opencv_ssd.caffemodel")
 
     # Landmark 모델
-    Landmark_Net = LandmarkNet(3, 3)
+    # Landmark_Net = LandmarkNet(3, 3)
     # Landmark_Net = torch.nn.DataParallel(Landmark_Net).to(device)
-    Landmark_Net = Landmark_Net.to(device)
-    # Landmark_Net.load_state_dict(torch.load("./models/ETRI_LANDMARK_68pt.pth.tar", map_location=device)['state_dict'])
-    Landmark_Net.load_state_dict(torch.load("/home/ubuntu/projects/withmind_video/im_video/file/ETRI_LANDMARK_68pt.pth.tar", map_location=device)['state_dict'])
+    # Landmark_Net = Landmark_Net.to(device)
+    # Landmark_Net.load_state_dict(torch.load("C:/Users/withmind/Desktop//models/ETRI_LANDMARK_68pt.pth.tar", map_location=device)['state_dict'])
+    # Landmark_Net.load_state_dict(torch.load("/home/ubuntu/projects/withmind_video/im_video/file/ETRI_LANDMARK_68pt.pth.tar", map_location=device)['state_dict'])
 
     # Headpose 모델
-    Headpose_Net = HeadposeNet(torchvision.models.resnet.Bottleneck, [3, 4, 6, 3], 66)
-    Headpose_Net = Headpose_Net.to(device)
-    # Headpose_Net.load_state_dict(torch.load("./models/ETRI_HEAD_POSE.pth.tar"))
-    Headpose_Net.load_state_dict(torch.load("/home/ubuntu/projects/withmind_video/im_video/file/ETRI_HEAD_POSE.pth.tar"))
+    # Headpose_Net = HeadposeNet(torchvision.models.resnet.Bottleneck, [3, 4, 6, 3], 66)
+    # Headpose_Net = Headpose_Net.to(device)
+    # Headpose_Net.load_state_dict(torch.load("C:/Users/withmind/Desktop/models/ETRI_HEAD_POSE.pth.tar"))
+    # Headpose_Net.load_state_dict(torch.load("/home/ubuntu/projects/withmind_video/im_video/file/ETRI_HEAD_POSE.pth.tar"))
 
     # Emotion classifier
-    Emotion_Net = EmotionNet(num_classes=7).to(device)
-    # new_dict = get_state_dict(torch.load("./models/ETRI_Emotion.pth.tar")['state_dict'])
-    new_dict = get_state_dict(torch.load("/home/ubuntu/projects/withmind_video/im_video/file/ETRI_EMOTION.pth.tar")['state_dict'])
-    Emotion_Net.load_state_dict(new_dict)
+    # Emotion_Net = EmotionNet(num_classes=7).to(device)
+    # new_dict = get_state_dict(torch.load("C:/Users/withmind/Desktop/models/ETRI_Emotion.pth.tar")['state_dict'])
+    # new_dict = get_state_dict(torch.load("/home/ubuntu/projects/withmind_video/im_video/file/ETRI_EMOTION.pth.tar")['state_dict'])
+    # Emotion_Net.load_state_dict(new_dict)
+
+
 
     # 각 모델 evaluation 모드로 설정
-    Landmark_Net.eval()
-    Headpose_Net.eval()
-    Emotion_Net.eval()
+    ImConfig.Landmark_Net.eval()
+    ImConfig.Headpose_Net.eval()
+    ImConfig.Emotion_Net.eval()
+    # Landmark_Net.eval()
+    # Headpose_Net.eval()
+    # Emotion_Net.eval()
 
-    return FD_Net, Landmark_Net, Headpose_Net, Emotion_Net
+    return ImConfig.FD_Net, ImConfig.Landmark_Net, ImConfig.Headpose_Net, ImConfig.Emotion_Net
 
 
 # 얼굴검출
